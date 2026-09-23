@@ -322,26 +322,26 @@ export default function SpeedTestModal({ open, onClose }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[95] bg-[#07080b] text-white flex flex-col justify-between p-6 sm:p-10 select-none overflow-hidden transition-all duration-300 ease-out-expo ${
+      className={`fixed inset-0 z-[95] bg-[#07080b] text-white flex flex-col justify-between p-4 sm:p-6 lg:p-10 select-none overflow-y-auto overscroll-contain transition-all duration-300 ease-out-expo ${
         visible ? 'opacity-100 scale-100' : 'opacity-0 scale-[0.99] pointer-events-none'
       }`}
     >
       {/* Background ambient glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-signal-500/15 blur-[160px]" />
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] sm:w-[700px] h-[500px] sm:h-[700px] rounded-full bg-signal-500/15 blur-[160px]" />
 
       {/* Top Header */}
-      <div className="relative z-10 flex items-center justify-between">
-        <div className="flex items-center gap-3 sm:gap-4">
-          <h2 className="font-display text-sm sm:text-base uppercase tracking-widest2 text-white/90">
+      <div className="relative z-10 flex items-center justify-between flex-shrink-0">
+        <div className="flex items-center gap-2.5 sm:gap-4">
+          <h2 className="font-display text-xs sm:text-base uppercase tracking-widest2 text-white/90">
             SPEED TEST
           </h2>
-          <div className="flex items-center gap-1.5 font-mono text-[11px] text-white/45 border-l border-white/15 pl-3 sm:pl-4">
-            <span>Powered by</span>
+          <div className="flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] text-white/45 border-l border-white/15 pl-2.5 sm:pl-4">
+            <span className="hidden xs:inline">Powered by</span>
             {/* Cloudflare logo icon */}
-            <svg className="h-3 w-auto fill-[#f6821f]" viewBox="0 0 120 40">
+            <svg className="h-2.5 sm:h-3 w-auto fill-[#f6821f]" viewBox="0 0 120 40">
               <path d="M93.3 27.2c-1.3 0-2.4-.8-2.8-2l-1-3.6c-.3-1-1.2-1.7-2.3-1.7h-9.9c-.8 0-1.5.5-1.8 1.2l-1.4 3.7c-.4 1.2-1.5 2-2.8 2h-4.3l9.8-22.9c.7-1.6 2.3-2.6 4.1-2.6h3.4c1.8 0 3.4 1 4.1 2.6l9.9 22.9h-5.1zm-8.8-12.7l-3.2 8.5h6.4l-3.2-8.5z" />
             </svg>
-            <span className="font-sans text-xs font-semibold text-white/80">Cloudflare</span>
+            <span className="font-sans text-[11px] sm:text-xs font-semibold text-white/80">Cloudflare</span>
           </div>
         </div>
 
@@ -349,7 +349,7 @@ export default function SpeedTestModal({ open, onClose }) {
         <button
           onClick={onClose}
           aria-label="Close"
-          className="h-10 w-10 sm:h-11 sm:w-11 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/30 transition-all text-white/80 hover:text-white cursor-pointer"
+          className="h-9 w-9 sm:h-11 sm:w-11 flex items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 hover:border-white/30 transition-all text-white/80 hover:text-white cursor-pointer flex-shrink-0"
         >
           <X size={18} />
         </button>
@@ -381,87 +381,87 @@ export default function SpeedTestModal({ open, onClose }) {
       )}
 
       {/* Center Hero Readout */}
-      <div className="relative z-10 flex flex-col items-center justify-center text-center my-auto px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center text-center my-auto py-6 px-2">
         {/* Metric Phase Title */}
-        <p className="font-mono text-xs sm:text-sm uppercase tracking-[0.35em] text-signal-400 font-medium mb-3">
+        <p className="font-mono text-[10px] sm:text-sm uppercase tracking-[0.25em] sm:tracking-[0.35em] text-signal-400 font-medium mb-2 sm:mb-3">
           {PHASE_LABEL[phase]}
         </p>
 
         {/* Main Speed Value Number & Unit */}
-        <div className="flex items-baseline justify-center">
-          <span className="font-display font-light text-6xl sm:text-8xl md:text-[10rem] leading-none tracking-tight text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.1)]">
+        <div className="flex items-baseline justify-center max-w-full">
+          <span className="font-display font-light text-5xl sm:text-7xl md:text-8xl lg:text-[9.5rem] leading-none tracking-tight text-white drop-shadow-[0_0_35px_rgba(255,255,255,0.1)] truncate">
             {phase === 'idle' ? '0.00' : mainValue}
           </span>
-          <span className="text-2xl sm:text-4xl text-white/55 font-sans font-normal tracking-normal ml-3 sm:ml-5">
+          <span className="text-lg sm:text-3xl lg:text-4xl text-white/55 font-sans font-normal tracking-normal ml-2 sm:ml-4">
             {mainUnit}
           </span>
         </div>
 
         {/* Connection Visualizer / Network Dots */}
-        <div className="mt-8 flex items-center justify-center gap-4 text-white/40">
-          <Globe size={18} className={isRunning ? 'text-signal-400 animate-pulse' : 'text-white/40'} />
-          <div className="flex items-center gap-2">
+        <div className="mt-6 sm:mt-8 flex items-center justify-center gap-3 sm:gap-4 text-white/40">
+          <Globe size={16} className={isRunning ? 'text-signal-400 animate-pulse' : 'text-white/40'} />
+          <div className="flex items-center gap-1.5 sm:gap-2">
             <span className={`h-1.5 w-1.5 rounded-full ${isRunning ? 'bg-signal-500 animate-ping' : 'bg-white/20'}`} />
             <span className={`h-1.5 w-1.5 rounded-full ${isRunning ? 'bg-signal-500/80' : 'bg-white/20'}`} />
             <span className={`h-1.5 w-1.5 rounded-full ${isRunning ? 'bg-signal-500/60' : 'bg-white/20'}`} />
           </div>
-          <Laptop size={18} className={isRunning ? 'text-signal-400' : 'text-white/40'} />
+          <Laptop size={16} className={isRunning ? 'text-signal-400' : 'text-white/40'} />
         </div>
 
         {/* Error message if any */}
         {error && (
-          <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-mono">
+          <div className="mt-4 sm:mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs font-mono">
             <AlertCircle size={14} />
             <span>{error}</span>
           </div>
         )}
 
-        {/* Secondary Results & Controls Bar */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+        {/* Secondary Results Bar — Mobile Responsive Card Grid */}
+        <div className="mt-8 sm:mt-10 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-6 w-full max-w-4xl mx-auto">
           {/* Download stat */}
-          <div className="text-center">
-            <span className="block font-mono text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
+          <div className="text-center p-3 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-2xl sm:rounded-none border border-white/10 sm:border-0">
+            <span className="block font-mono text-[9px] sm:text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
               Download
             </span>
-            <span className="font-display text-xl sm:text-2xl text-white font-medium">
-              {formatMbps(displayDown)} <span className="text-xs text-white/50 font-sans">Mbps</span>
+            <span className="font-display text-lg sm:text-2xl text-white font-medium">
+              {formatMbps(displayDown)} <span className="text-[10px] sm:text-xs text-white/50 font-sans">Mbps</span>
             </span>
           </div>
 
           {/* Upload stat */}
-          <div className="text-center border-l border-white/10 pl-6 sm:pl-10">
-            <span className="block font-mono text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
+          <div className="text-center p-3 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-2xl sm:rounded-none border border-white/10 sm:border-0 sm:border-l sm:border-white/10 sm:pl-6">
+            <span className="block font-mono text-[9px] sm:text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
               Upload
             </span>
-            <span className="font-display text-xl sm:text-2xl text-white font-medium">
-              {formatMbps(displayUp)} <span className="text-xs text-white/50 font-sans">Mbps</span>
+            <span className="font-display text-lg sm:text-2xl text-white font-medium">
+              {formatMbps(displayUp)} <span className="text-[10px] sm:text-xs text-white/50 font-sans">Mbps</span>
             </span>
           </div>
 
           {/* Latency stat */}
-          <div className="text-center border-l border-white/10 pl-6 sm:pl-10">
-            <span className="block font-mono text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
+          <div className="text-center p-3 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-2xl sm:rounded-none border border-white/10 sm:border-0 sm:border-l sm:border-white/10 sm:pl-6">
+            <span className="block font-mono text-[9px] sm:text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
               Latency
             </span>
-            <span className="font-display text-xl sm:text-2xl text-white font-medium">
-              {latencyVal} <span className="text-xs text-white/50 font-sans">{latencyVal !== '—' ? 'ms' : ''}</span>
+            <span className="font-display text-lg sm:text-2xl text-white font-medium">
+              {latencyVal} <span className="text-[10px] sm:text-xs text-white/50 font-sans">{latencyVal !== '—' ? 'ms' : ''}</span>
             </span>
           </div>
 
           {/* Jitter stat */}
-          <div className="text-center border-l border-white/10 pl-6 sm:pl-10 hidden sm:block">
-            <span className="block font-mono text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
+          <div className="text-center p-3 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-2xl sm:rounded-none border border-white/10 sm:border-0 sm:border-l sm:border-white/10 sm:pl-6">
+            <span className="block font-mono text-[9px] sm:text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
               Jitter
             </span>
-            <span className="font-display text-xl sm:text-2xl text-white font-medium">
-              {jitterVal} <span className="text-xs text-white/50 font-sans">{jitterVal !== '—' ? 'ms' : ''}</span>
+            <span className="font-display text-lg sm:text-2xl text-white font-medium">
+              {jitterVal} <span className="text-[10px] sm:text-xs text-white/50 font-sans">{jitterVal !== '—' ? 'ms' : ''}</span>
             </span>
           </div>
 
           {/* Grade pill if complete */}
           {grade && (
-            <div className="border-l border-white/10 pl-6 sm:pl-10">
-              <span className="block font-mono text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
+            <div className="col-span-2 sm:col-span-4 lg:col-span-1 text-center p-3 sm:p-0 bg-white/[0.03] sm:bg-transparent rounded-2xl sm:rounded-none border border-white/10 sm:border-0 sm:border-l sm:border-white/10 sm:pl-6 flex flex-col items-center justify-center">
+              <span className="block font-mono text-[9px] sm:text-[10px] uppercase tracking-widest2 text-white/40 mb-1">
                 Quality
               </span>
               <span
@@ -475,11 +475,11 @@ export default function SpeedTestModal({ open, onClose }) {
         </div>
 
         {/* Primary Action Buttons */}
-        <div className="mt-8 flex items-center justify-center gap-4">
+        <div className="mt-6 sm:mt-8 flex items-center justify-center gap-4">
           {!isRunning ? (
             <button
               onClick={start}
-              className="group relative inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full font-mono text-xs uppercase tracking-widest2 text-white bg-signal-500 hover:bg-signal-600 shadow-[0_0_30px_rgba(61,99,255,0.4)] hover:shadow-[0_0_40px_rgba(61,99,255,0.6)] hover:scale-[1.03] active:scale-95 transition-all duration-300 cursor-pointer"
+              className="group relative inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-mono text-xs uppercase tracking-widest2 text-white bg-signal-500 hover:bg-signal-600 shadow-[0_0_30px_rgba(61,99,255,0.4)] hover:shadow-[0_0_40px_rgba(61,99,255,0.6)] hover:scale-[1.03] active:scale-95 transition-all duration-300 cursor-pointer"
             >
               {phase === 'done' || phase === 'error' ? (
                 <>
@@ -508,8 +508,8 @@ export default function SpeedTestModal({ open, onClose }) {
       </div>
 
       {/* Bottom Footer & ESC Indicator */}
-      <div className="relative z-10 flex items-center justify-center pt-4">
-        <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest2 text-white/40">
+      <div className="relative z-10 flex items-center justify-center pt-2 sm:pt-4 flex-shrink-0">
+        <div className="flex items-center gap-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest2 text-white/40">
           <kbd className="px-2 py-0.5 border border-white/20 rounded text-[10px] text-white/60">esc</kbd>
           <span>close</span>
         </div>
