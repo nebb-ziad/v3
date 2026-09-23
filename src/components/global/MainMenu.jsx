@@ -60,7 +60,7 @@ export default function MainMenu({ onOpenBookMeeting, onOpenSpeedTest, onOpenTyp
   const ITEMS = [
     { icon: CalendarClock, label: 'Book a Meeting', hint: 'Pick a time', accent: '#3d63ff', action: onOpenBookMeeting },
     { icon: Gauge, label: 'Speed Test', hint: 'Edge network', accent: '#f6821f', action: onOpenSpeedTest },
-    { icon: Keyboard, label: 'Typing Test', hint: 'WPM + accuracy', accent: '#a78bfa', action: onOpenTypingTest },
+    { icon: Keyboard, label: 'Typing Test', hint: 'Laptop & Desktop', accent: '#a78bfa', action: onOpenTypingTest },
     { icon: Sparkles, label: 'Ask Anything', hint: 'Ask the site', accent: '#38bdf8', action: onOpenAskAnything },
   ]
 
