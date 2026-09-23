@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+html { color-scheme: light; }
+html.dark { color-scheme: dark; }
+
+html, body { overflow-x: hidden; width: 100%; }
+
+body {
+  @apply bg-paper-50 text-ink-950 dark:bg-ink-950 dark:text-paper-100 font-sans antialiased;
+}
+
+::selection { @apply bg-signal-500 text-paper-100; }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background-color: rgba(61,99,255,0.35); border-radius: 999px; }
+
+:focus-visible { outline: 2px solid theme('colors.signal.500'); outline-offset: 3px; border-radius: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.font-display { font-family: 'Fraunces', ui-serif, Georgia, serif; }
+.font-brand { font-family: 'Space Grotesk', sans-serif; }
+
+/* Grain overlay */
+.grain-overlay {
+  position: fixed; inset: 0; z-index: 60; pointer-events: none;
+  opacity: .035; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px;
+}
+.dark .grain-overlay { opacity: .05; }
+
+/* Signature draw-on stroke, shared by Preloader + Hero motif */
+.sig-path {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: var(--sig-len, 2000);
+  stroke-dashoffset: var(--sig-len, 2000);
+  animation: drawSig 1.8s cubic-bezier(.65,0,.35,1) forwards;
+}
+
+/* Ambient blue glow used as a signature background accent */
+.signal-glow {
+  background: radial-gradient(circle at 30% 20%, rgba(61,99,255,0.22), transparent 60%);
+}
+
+/* GPU acceleration & content-visibility performance classes */
+.gpu-layer {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+.content-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 700px;
+}
+
+/* View Transitions — circular wipe is animated in JS (WAAPI) */
+html.vt-active,
+html.vt-active body {
+  transition: none !important;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) { z-index: 1; }
+::view-transition-new(root) { z-index: 2; }
+/* Preloader 3D spin */
+@keyframes markinebSpinY {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+
+.markineb-mark {
+  -webkit-perspective: 900px;
+  perspective: 900px;
+  max-width: 100%;
+}
+
+.markineb-mark-inner {
+  display: inline-block;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-backface-visibility: visible;
+  backface-visibility: visible;
+  animation: markinebSpinY 2s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .markineb-mark-inner {
+    animation: none;
+  }
+}
+/* Recent Works infinite marquee */
+@keyframes marqueeFwd {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes marqueeRev {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
