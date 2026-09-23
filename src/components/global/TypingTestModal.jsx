@@ -1,6 +1,26 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { X, RotateCcw, Check } from 'lucide-react'
+import { X, RotateCcw, Check, Laptop } from 'lucide-react'
 import ModalShell from './ModalShell.jsx'
+
+function useIsMobileOrTablet() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const check = () => {
+      const width = window.innerWidth
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+      const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+      setIsMobile(width < 1024 || (hasTouch && isMobileUA))
+    }
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [])
+
+  return isMobile
+}
 
 const WORD_BANK = [
   // common everyday words
@@ -343,6 +363,8 @@ export default function TypingTestModal({ open, onClose }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [done])
 
+  const isMobileOrTablet = useIsMobileOrTablet()
+
   useEffect(() => {
     window.dispatchEvent(new CustomEvent('markineb:typingtest', { detail: { open } }))
     return () => {
@@ -351,6 +373,52 @@ export default function TypingTestModal({ open, onClose }) {
   }, [open])
 
   if (!open) return null
+
+  if (isMobileOrTablet) {
+    return (
+      <ModalShell
+        open={open}
+        onClose={onClose}
+        eyebrow="Typing Test"
+        maxWidth="max-w-md"
+      >
+        <div className="flex flex-col items-center justify-center text-center py-6 px-3 text-ink-950 dark:text-paper-100">
+          <div className="relative mb-5 flex items-center justify-center">
+            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-full bg-signal-500/10 flex items-center justify-center text-signal-500 border border-signal-500/20 shadow-[0_0_30px_rgba(61,99,255,0.25)]">
+              <Laptop size={32} />
+            </div>
+            <span className="absolute -top-1 -right-1 flex h-4 w-4">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-4 w-4 bg-amber-500 flex items-center justify-center text-[9px] font-bold text-black">!</span>
+            </span>
+          </div>
+
+          <span className="inline-block px-3 py-1 rounded-full bg-amber-500/10 text-amber-500 dark:text-amber-400 border border-amber-500/20 font-mono text-[10px] uppercase tracking-widest2 mb-3">
+            Laptop & Desktop Only
+          </span>
+
+          <h3 className="font-display text-xl sm:text-2xl font-semibold mb-2">
+            Physical Keyboard Required
+          </h3>
+
+          <p className="text-xs sm:text-sm text-ink-950/70 dark:text-paper-100/70 max-w-sm leading-relaxed mb-3">
+            Ang <strong>Typing Test</strong> ay available lamang sa <strong>Laptop at Desktop</strong> devices na may physical keyboard.
+          </p>
+
+          <p className="font-mono text-[11px] text-ink-950/45 dark:text-paper-100/45 max-w-xs mb-6">
+            Please open this website on a laptop or desktop computer to take the WPM speed test.
+          </p>
+
+          <button
+            onClick={onClose}
+            className="px-6 py-2 rounded-full bg-signal-500 text-white hover:bg-signal-600 font-mono text-xs uppercase tracking-wider transition-colors cursor-pointer shadow-md"
+          >
+            Got it
+          </button>
+        </div>
+      </ModalShell>
+    )
+  }
 
   const commitWord = (typedWord, countSeparator = true) => {
     const len = Math.max(typedWord.length, target.length)
