@@ -49,15 +49,15 @@ export default function ModalShell({
         visible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.98] translate-y-2 pointer-events-none'
       }`}
     >
-      <div className="flex items-center justify-between gap-4 px-5 sm:px-8 py-5 sm:py-6 flex-shrink-0">
-        <span className="flex items-baseline gap-2.5 min-w-0">
+      <div className="flex items-center justify-between gap-3 sm:gap-4 px-3.5 sm:px-8 py-3.5 sm:py-6 flex-shrink-0">
+        <span className="flex items-baseline gap-2 min-w-0 max-w-[70vw] sm:max-w-none">
           {label && (
-            <span className="font-display text-sm sm:text-base uppercase tracking-widest2 truncate">
+            <span className="font-display text-xs sm:text-base uppercase tracking-widest2 truncate">
               {label}
             </span>
           )}
           {meta && (
-            <span className="inline-flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] text-ink-950/45 dark:text-paper-100/45 whitespace-nowrap">
+            <span className="inline-flex items-center gap-1.5 font-mono text-[9px] sm:text-[11px] text-ink-950/45 dark:text-paper-100/45 whitespace-nowrap truncate">
               {meta}
             </span>
           )}
@@ -65,19 +65,19 @@ export default function ModalShell({
         <button
           onClick={onClose}
           aria-label="Close"
-          className="h-9 w-9 sm:h-10 sm:w-10 flex items-center justify-center rounded-full border border-ink-950/15 dark:border-paper-100/18 hover:border-signal-500 hover:text-signal-500 transition-colors flex-shrink-0"
+          className="h-8 w-8 sm:h-10 sm:w-10 flex items-center justify-center rounded-full border border-ink-950/15 dark:border-paper-100/18 hover:border-signal-500 hover:text-signal-500 transition-colors flex-shrink-0 cursor-pointer"
         >
           <X size={16} />
         </button>
       </div>
 
       <div className="no-scrollbar flex-1 min-h-0 overflow-y-auto overscroll-contain">
-        <div className="min-h-full flex items-center justify-center px-5 sm:px-8 py-6">
+        <div className="min-h-full flex items-center justify-center px-3 sm:px-8 py-4 sm:py-6">
           <div className={`w-full ${maxWidth}`}>{children}</div>
         </div>
       </div>
 
-      <div className="flex-shrink-0 flex items-center justify-center gap-5 py-5 sm:py-6 font-mono text-[11px] uppercase tracking-widest2 text-ink-950/45 dark:text-paper-100/45">
+      <div className="flex-shrink-0 flex items-center justify-center gap-4 sm:gap-5 py-3.5 sm:py-6 font-mono text-[10px] sm:text-[11px] uppercase tracking-widest2 text-ink-950/45 dark:text-paper-100/45">
         {footerLeft}
         <span className="inline-flex items-center gap-2">
           <kbd className="px-1.5 py-0.5 border border-ink-950/20 dark:border-paper-100/20 rounded-sm text-[10px] normal-case">esc</kbd>
