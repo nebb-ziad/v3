@@ -213,34 +213,34 @@ export default function AskAnythingModal({ open, onClose }) {
     >
       <style>{ORB_STYLES}</style>
 
-      <div className="flex flex-col h-[min(74dvh,640px)]">
+      <div className="flex flex-col h-[min(78dvh,620px)] sm:h-[600px]">
         {messages.length === 0 ? (
-          <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-5 px-2">
-            <span className="h-16 w-16 rounded-full flex items-center justify-center p-[3px]">
-            <span className="ai-orb--idle h-full w-full rounded-full flex items-center justify-center overflow-hidden">
-              <img
-                src="images/profile.png"
-                alt={PROFILE.name}
-                className="h-[85%] w-[85%] rounded-full object-cover"
-              />
+          <div className="flex-1 min-h-0 flex flex-col items-center justify-center text-center gap-4 sm:gap-5 px-2">
+            <span className="h-14 w-14 sm:h-16 sm:w-16 rounded-full flex items-center justify-center p-[3px]">
+              <span className="ai-orb--idle h-full w-full rounded-full flex items-center justify-center overflow-hidden">
+                <img
+                  src="images/profile.png"
+                  alt={PROFILE.name}
+                  className="h-[85%] w-[85%] rounded-full object-cover"
+                />
+              </span>
             </span>
-          </span>
 
-            <div className="space-y-1.5">
-              <h3 className="font-display text-2xl sm:text-3xl font-semibold">
+            <div className="space-y-1 sm:space-y-1.5">
+              <h3 className="font-display text-xl sm:text-3xl font-semibold">
                 Ask me anything
               </h3>
-              <p className="text-sm text-ink-950/60 dark:text-paper-100/60 max-w-sm mx-auto">
+              <p className="text-xs sm:text-sm text-ink-950/60 dark:text-paper-100/60 max-w-sm mx-auto">
                 Ask about {firstName}'s tech stack, featured projects, education, or availability.
               </p>
             </div>
 
-            <div className="flex flex-wrap justify-center gap-2 max-w-md">
+            <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 max-w-md">
               {INITIAL_SUGGESTIONS.map((s) => (
                 <button
                   key={s}
                   onClick={() => send(s)}
-                  className="font-mono text-[11px] border border-ink-950/15 dark:border-paper-100/18 rounded-full px-3 py-1.5 hover:border-signal-500 hover:text-signal-500 transition-all active:scale-95 text-left"
+                  className="font-mono text-[10px] sm:text-[11px] border border-ink-950/15 dark:border-paper-100/18 rounded-full px-2.5 sm:px-3 py-1 sm:py-1.5 hover:border-signal-500 hover:text-signal-500 transition-all active:scale-95 text-left"
                 >
                   {s}
                 </button>
@@ -252,7 +252,7 @@ export default function AskAnythingModal({ open, onClose }) {
                 e.preventDefault()
                 send()
               }}
-              className="group relative mt-2 w-full max-w-lg flex items-center gap-2"
+              className="group relative mt-1 sm:mt-2 w-full max-w-lg flex items-center gap-2"
             >
               <span className="relative flex-1 flex items-center gap-2 rounded-full pl-4 pr-1.5 py-1.5 shadow-sm border border-ink-950/10 dark:border-paper-100/10 focus-within:border-signal-500 transition-colors">
                 <span className="pointer-events-none absolute inset-[1.5px] rounded-full bg-paper-100 dark:bg-ink-950" />
@@ -261,7 +261,7 @@ export default function AskAnythingModal({ open, onClose }) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={`Ask ${firstName}'s assistant…`}
-                  className="relative flex-1 min-w-0 bg-transparent text-sm focus:outline-none py-1.5 placeholder:text-ink-950/40 dark:placeholder:text-paper-100/40"
+                  className="relative flex-1 min-w-0 bg-transparent text-base sm:text-sm focus:outline-none py-1 sm:py-1.5 placeholder:text-ink-950/40 dark:placeholder:text-paper-100/40"
                 />
                 <button
                   type="submit"
@@ -278,22 +278,22 @@ export default function AskAnythingModal({ open, onClose }) {
           <>
             <div
               ref={scrollRef}
-              className="flex-1 min-h-0 overflow-y-auto space-y-4 pr-1 -mr-1"
+              className="flex-1 min-h-0 overflow-y-auto space-y-3.5 sm:space-y-4 pr-1 -mr-1"
             >
               {messages.map((m, i) => (
                 <div key={i} className="space-y-2">
                   <div
-                    className={`flex gap-2.5 ${
+                    className={`flex gap-2 sm:gap-2.5 ${
                       m.role === 'user' ? 'justify-end' : 'justify-start items-start'
                     }`}
                   >
                     {m.role === 'assistant' && (
                       <div className="mt-1">
-                        <Orb size={16} />
+                        <Orb size={15} />
                       </div>
                     )}
                     <div
-                      className={`max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                      className={`max-w-[88%] sm:max-w-[82%] rounded-2xl px-3.5 py-2.5 sm:px-4 sm:py-3 text-xs sm:text-sm leading-relaxed ${
                         m.role === 'user'
                           ? 'bg-ink-950 dark:bg-paper-100 text-paper-100 dark:text-ink-950 rounded-br-sm'
                           : 'bg-ink-950/6 dark:bg-paper-100/8 border border-ink-950/5 dark:border-paper-100/10 rounded-bl-sm'
@@ -307,7 +307,7 @@ export default function AskAnythingModal({ open, onClose }) {
 
                           {/* Quick action buttons if available */}
                           {m.actions && m.actions.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mt-3 pt-2.5 border-t border-ink-950/10 dark:border-paper-100/10">
+                            <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-2.5 pt-2 border-t border-ink-950/10 dark:border-paper-100/10">
                               {m.actions.map((act, aIdx) => (
                                 <a
                                   key={aIdx}
@@ -315,7 +315,7 @@ export default function AskAnythingModal({ open, onClose }) {
                                   target={act.type === 'email' ? undefined : '_blank'}
                                   rel="noopener noreferrer"
                                   download={act.type === 'file'}
-                                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono bg-ink-950/10 dark:bg-paper-100/10 hover:bg-signal-500 hover:text-white dark:hover:bg-signal-500 dark:hover:text-white transition-colors"
+                                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-mono bg-ink-950/10 dark:bg-paper-100/10 hover:bg-signal-500 hover:text-white dark:hover:bg-signal-500 dark:hover:text-white transition-colors"
                                 >
                                   {act.type === 'email' && <Mail size={12} />}
                                   {act.type === 'file' && <Download size={12} />}
@@ -336,12 +336,12 @@ export default function AskAnythingModal({ open, onClose }) {
                     m.suggestions &&
                     m.suggestions.length > 0 &&
                     !loading && (
-                      <div className="flex flex-wrap gap-1.5 pl-6 pt-1">
+                      <div className="flex flex-wrap gap-1.5 pl-5 sm:pl-6 pt-1">
                         {m.suggestions.map((sug, sIdx) => (
                           <button
                             key={sIdx}
                             onClick={() => send(sug)}
-                            className="font-mono text-[11px] px-2.5 py-1 rounded-full border border-ink-950/15 dark:border-paper-100/18 text-ink-950/80 dark:text-paper-100/80 hover:border-signal-500 hover:text-signal-500 hover:bg-signal-500/5 transition-all text-left active:scale-95"
+                            className="font-mono text-[10px] sm:text-[11px] px-2.5 py-1 rounded-full border border-ink-950/15 dark:border-paper-100/18 text-ink-950/80 dark:text-paper-100/80 hover:border-signal-500 hover:text-signal-500 hover:bg-signal-500/5 transition-all text-left active:scale-95"
                           >
                             + {sug}
                           </button>
@@ -352,9 +352,9 @@ export default function AskAnythingModal({ open, onClose }) {
               ))}
 
               {loading && (
-                <div className="flex gap-2.5 justify-start items-start">
+                <div className="flex gap-2 sm:gap-2.5 justify-start items-start">
                   <div className="mt-1">
-                    <Orb size={16} />
+                    <Orb size={15} />
                   </div>
                   <div className="bg-ink-950/6 dark:bg-paper-100/8 border border-ink-950/5 dark:border-paper-100/10 rounded-2xl rounded-bl-sm px-4 py-3 flex items-center gap-1.5">
                     <span
@@ -379,7 +379,7 @@ export default function AskAnythingModal({ open, onClose }) {
                 e.preventDefault()
                 send()
               }}
-              className="group relative mt-4 flex-shrink-0 flex items-center gap-2"
+              className="group relative mt-3 sm:mt-4 flex-shrink-0 flex items-center gap-2"
             >
               <span className="relative flex-1 flex items-center gap-2 rounded-full pl-4 pr-1.5 py-1.5 border border-ink-950/15 dark:border-paper-100/18 focus-within:border-signal-500 transition-colors">
                 <span className="pointer-events-none absolute inset-[1.5px] rounded-full bg-paper-100 dark:bg-ink-950" />
@@ -388,7 +388,7 @@ export default function AskAnythingModal({ open, onClose }) {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder={`Ask about ${firstName}'s work…`}
-                  className="relative flex-1 min-w-0 bg-transparent text-sm focus:outline-none py-1.5 placeholder:text-ink-950/40 dark:placeholder:text-paper-100/40"
+                  className="relative flex-1 min-w-0 bg-transparent text-base sm:text-sm focus:outline-none py-1 sm:py-1.5 placeholder:text-ink-950/40 dark:placeholder:text-paper-100/40"
                 />
                 <button
                   type="submit"
